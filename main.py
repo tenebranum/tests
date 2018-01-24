@@ -1,4 +1,5 @@
 import itertools
+import re
 
 
 def sort_list(data):
@@ -77,12 +78,10 @@ def camel_case(row):
     #row = 'the_phantom_menace'
     #row = 'The-Phantom-Menace'
     #row = 'The-Phantom_Menace'
-    i = 0
-    while i < len(row):
-        if row[i] == '-' or row[i] == '_':
-            row = row[:i] + row[i+1].upper() + row[i+2:]
-        i += 1
-    return row
+    words = re.split('-|_', row)
+    for i in range(1, len(words)):
+        words[i] = words[i][0].upper() + words[i][1:]
+    return ''.join(words)
 
 
 def count_portion(recipe,available):
